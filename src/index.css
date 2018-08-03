@@ -1,13 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin-ext');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Lato', sans-serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+*:focus {
+  outline: none;
 }
 
+input, textarea {
+  font-family: 'Lato', sans-serif;
+
+}
+input::placeholder {
+  color: #ccc;
+  transition: 0.2s;
+}
+input:focus::placeholder {
+  opacity: 0;
+  transform: translate(0, -10px);
+}
 .default-btn {
   display: inline-block;
   padding: 12px 30px;
   color: white;
-  background-color: blue;
+  background-color: #8c3bb5;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 14px;
   margin-right: 20px;
+  transition: 0.25s;
+}
+.default-btn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+.warning-btn {
+  background-color: #dc1414;
+}
+.bland-btn {
+  background-color: #f79605;
+}
+.app-heading {
+  margin-bottom: 30px;
+  font-size: 24px;
 }

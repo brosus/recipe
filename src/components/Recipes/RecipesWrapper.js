@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Recipes.css'
 import RecipeList from './RecipeList'
 import AddRecipePopup from './AddRecipePopup'
+import RecipePopup from './RecipePopup';
 
 class RecipesWrapper extends Component {
 
@@ -9,19 +10,28 @@ class RecipesWrapper extends Component {
         super()
         this.state = {
             recipes: [],
-            ingredients: [],
             isPopupActive: false  
         }
     }
 
+    componentDidMount() {
+      this.checkForRecipes()
+    }
+
+ 
+
   render() {
     return (
       <div className="recipes-wrapper">
-        <RecipeList list={this.state.recipes} />
-        <AddRecipePopup isActive={this.state.isPopupActive}
-                        addRecipe={this.addRecipe.bind(this)}
-                        closePopup={this.closePopup.bind(this)}
-                        recipesCount={this.state.recipes.length} />
+        <h1 className="app-heading">Recipes</h1>
+        <RecipeList list={this.state.recipes} deleteRecipe={this.deleteRecipe.bind(this)} onPopupSubmit={this.editRecipe.bind(this)} />
+
+        {this.state.isPopupActive ? <RecipePopup title="Add recipe"
+                                                 onPopupSubmit={this.addRecipe.bind(this)}
+                                                 onPopupClose={this.closePopup.bind(this)}
+                                                 submitButtonText="Add"
+                                                 closeButtonText="Close" /> : null}
+
         <div className="default-btn" onClick={this.showPopup.bind(this)}>
             Add recipe
         </div>
@@ -29,8 +39,21 @@ class RecipesWrapper extends Component {
     )
   }
 
+  updateLocalStorage() {
+    localStorage.setItem('recipes', JSON.stringify(this.state.recipes))
+  }
+
+  editRecipe(index, recipe) {
+    let newState = {
+      ...this.state
+    }
+    newState.recipes[index] = recipe
+    this.setState(newState, () => {
+      this.updateLocalStorage()
+    })
+  }
+
   addRecipe(recipe) {
-    console.log('adding recipe')
 
     let newState = {
       ...this.state,
@@ -39,7 +62,10 @@ class RecipesWrapper extends Component {
         recipe
       ]
     }
-    this.setState(newState)
+    this.setState(newState, () => {
+      this.updateLocalStorage()
+      this.closePopup()
+    })
   }
 
   showPopup() {
@@ -56,6 +82,25 @@ class RecipesWrapper extends Component {
     })
   }
   
+  checkForRecipes() {
+    if ( localStorage.getItem('recipes') ) {
+      let newState = {
+        ...this.state,
+        recipes: JSON.parse(localStorage.getItem('recipes'))
+      }
+      this.setState(newState)
+    }
+  }
+
+  deleteRecipe(index) {
+    let newState = {
+      ...this.state,
+      recipes: this.state.recipes.filter((item, key) => key !== index)
+    }
+    this.setState(newState, () => {
+      this.updateLocalStorage()
+    })
+  }
 
 }
 

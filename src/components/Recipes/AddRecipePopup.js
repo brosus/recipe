@@ -33,11 +33,11 @@ class AddRecipePopup extends Component {
         <div className="add-recipe-popup-box">
             <div className="form-group">
                 <label>Recipe name:</label>
-                <input type="text" name="name" onChange={this.handleInputChange.bind(this)}  />
+                <input type="text" name="name" onChange={this.handleInputChange.bind(this)} placeholder="Tomato sauce"  />
             </div>
             <div className="form-group">
                 <label>Ingredients:</label>
-                <input type="text" name="ingredients" onChange={this.handleInputChange.bind(this)}  />
+                <input type="text" name="ingredients" onChange={this.handleInputChange.bind(this)} placeholder="tomatoes, cottage cheese, onions..."  />
             </div>
             <div className="default-btn" onClick={this.addRecipe.bind(this)}>
                 Add
@@ -50,10 +50,18 @@ class AddRecipePopup extends Component {
     )
   }
 
+  validateInputs() {
+      console.log('validating inputs')
+  }
+
   handleInputChange(e) {
 
     let inputName = e.target.name
     let inputValue = e.target.value
+
+   if ( inputName == 'ingredients' ) {
+    inputValue = inputValue.split(',')
+   } 
 
     let newState = {
         ...this.state,

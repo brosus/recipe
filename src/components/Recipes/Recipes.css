@@ -1,4 +1,81 @@
-.add-recipe-popup {
+.recipes-wrapper {
+   width: 1000px;
+   margin: 60px auto;
+}
+@media (max-width: 1040px) {
+    .recipes-wrapper {
+        width: 100%;
+        padding: 0 20px;
+    }
+}
+.recipe-list {
+    padding: 25px;
+    border: 1px solid #e6e6e6;
+    margin: 0 0 20px;
+}
+
+.recipe-list-item {
+    border: 1px solid #d2d2d2; 
+}
+
+.recipe-list-item.active .recipe-list-item-name {
+    color: white;
+    background-color: #8c3bb5;    
+}
+.recipe-list-item-name {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 20px;
+    transition: 0.25s;  
+    position: relative;
+    overflow: hidden;  
+}
+.recipe-list-item-name:hover {
+    opacity: 0.75;
+    cursor: pointer;
+}
+.recipe-details {
+    padding: 20px;
+    border-top: 1px solid #f2f2f2;
+    background-color: #f8f8f8;
+}
+.recipe-details-heading {
+    font-size: 22px;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+.form-group label {
+    font-weight: 400;
+    margin-bottom: 15px;
+    display: block;
+    font-size: 18px;
+}
+.form-group input {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #aaa;
+}
+.recipe-details-ingredients {
+    margin-bottom: 30px;
+}
+.recipe-details-ingredients-item {
+    padding: 10px;
+    border: 1px solid #e2e2e2;
+}
+.message {
+    color: #ccc;
+}
+
+.recipe-popup {
     position: fixed;
     z-index: 500;
     left: 0;
@@ -6,14 +83,9 @@
     width: 100%;
     height: 100vh;
     transition: 0.25s;
-    opacity: 0;
-    visibility: hidden;
 }
-.add-recipe-popup.show {
-    opacity: 1;
-    visibility: visible;
-}
-.add-recipe-popup:after {
+
+.recipe-popup:after {
     content: '';
     display: block;
     position: absolute;
@@ -25,13 +97,25 @@
     background-color: black;
     opacity: 0.55;
 }
-.add-recipe-popup-box {
+.recipe-popup-box {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: 45px 30px;
+    padding: 45px;
+    width: 520px;
     border-radius: 5px;
     border: 1px solid #f2f2f2;
     background-color: white;
+}
+
+.popup-heading {
+    font-size: 26px;
+    margin-bottom: 35px;
+}
+.validation-info {
+    color: red;
+    position: absolute;
+    top: 23px;
+    font-size: 13px;
 }
